@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 FIND_PACKAGE( Boost 1.40 COMPONENTS system REQUIRED )
-#FIND_PACKAGE(PNG REQUIRED)
-#include_directories(${PNG_INCLUDE_DIR})
 set (CMAKE_CXX_FLAGS "-g -Wall")
 
 include (FindPkgConfig)
