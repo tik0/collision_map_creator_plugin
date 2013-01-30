@@ -1,19 +1,17 @@
 #include <iostream>
 #include <math.h>
+#include <deque>
 #include "gazebo.hh"
-#include "gazebo/gazebo_config.h"
 #include "common/common.hh"
 #include "math/Vector3.hh"
 #include "transport/transport.hh"
 #include "physics/physics.hh"
 #include "sdf/sdf.hh"
 #include "msgs/msgs.hh"
-#include <deque>
 #include "collision_map_request.pb.h"
 #include "vec2d.pb.h"
 
 using namespace std;
-
 
 bool createVectorArray(const char * vectorString, 
                        deque<collision_map_creator_msgs::msgs::Vec2d*> corners)
@@ -42,7 +40,6 @@ bool createVectorArray(const char * vectorString,
     }
     return true;
 }
-
 
 int main(int argc, char * argv[])
 {
@@ -89,7 +86,6 @@ int main(int argc, char * argv[])
                      " Filename: " << request.filename() <<
                      " Threshold: " << request.threshold() << std::endl;
 
-
         gazebo::transport::PublisherPtr imagePub =
                 node->Advertise<collision_map_creator_msgs::msgs::CollisionMapRequest>(
                                                             "~/collision_map/command");
@@ -99,6 +95,5 @@ int main(int argc, char * argv[])
         gazebo::transport::fini();
         return 0;
     }
-
     return -1;
 }

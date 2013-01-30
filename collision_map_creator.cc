@@ -9,10 +9,9 @@
 #include "sdf/sdf.hh"
 #include "msgs/msgs.hh"
 #include "collision_map_request.pb.h"
-#include "png++/png.hpp"
 #include <boost/gil/gil_all.hpp>
 #include <boost/gil/extension/io/png_dynamic_io.hpp>
-#include <boost/gil/typedefs.hpp>
+
 
 namespace gazebo
 {
