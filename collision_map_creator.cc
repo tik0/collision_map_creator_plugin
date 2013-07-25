@@ -1,17 +1,17 @@
 #include <iostream>
 #include <math.h>
 #include <boost/shared_ptr.hpp>
-#include "gazebo.hh"
-#include "common/common.hh"
-#include "math/Vector3.hh"
-#include "transport/transport.hh"
-#include "physics/physics.hh"
-#include "sdf/sdf.hh"
-#include "msgs/msgs.hh"
-#include "collision_map_request.pb.h"
+#include <sdf/sdf.hh>
 #include <boost/gil/gil_all.hpp>
 #include <boost/gil/extension/io/png_dynamic_io.hpp>
 
+#include "gazebo/gazebo.hh"
+#include "gazebo/common/common.hh"
+#include "gazebo/math/Vector3.hh"
+#include "gazebo/transport/transport.hh"
+#include "gazebo/physics/physics.hh"
+#include "gazebo/msgs/msgs.hh"
+#include "collision_map_request.pb.h"
 
 namespace gazebo
 {

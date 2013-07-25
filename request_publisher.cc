@@ -1,19 +1,21 @@
 #include <iostream>
 #include <math.h>
 #include <deque>
-#include "gazebo.hh"
-#include "common/common.hh"
-#include "math/Vector3.hh"
-#include "transport/transport.hh"
-#include "physics/physics.hh"
-#include "sdf/sdf.hh"
-#include "msgs/msgs.hh"
+#include <sdf/sdf.hh>
+
+#include "gazebo/gazebo.hh"
+#include "gazebo/common/common.hh"
+#include "gazebo/math/Vector3.hh"
+#include "gazebo/transport/transport.hh"
+#include "gazebo/physics/physics.hh"
+#include "gazebo/msgs/msgs.hh"
+
 #include "collision_map_request.pb.h"
 #include "vec2d.pb.h"
 
 using namespace std;
 
-bool createVectorArray(const char * vectorString, 
+bool createVectorArray(const char * vectorString,
                        deque<collision_map_creator_msgs::msgs::Vec2d*> corners)
 {
     deque<collision_map_creator_msgs::msgs::Vec2d*>::iterator it;
