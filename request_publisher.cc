@@ -11,14 +11,14 @@
 #include "gazebo/msgs/msgs.hh"
 
 #include "collision_map_request.pb.h"
-#include "vec2d.pb.h"
+#include "vector2d.pb.h"
 
 using namespace std;
 
 bool createVectorArray(const char * vectorString,
-                       deque<collision_map_creator_msgs::msgs::Vec2d*> corners)
+                       deque<gazebo::msgs::Vector2d*> corners)
 {
-    deque<collision_map_creator_msgs::msgs::Vec2d*>::iterator it;
+    deque<gazebo::msgs::Vector2d*>::iterator it;
 
     string cornersStr = vectorString;
     size_t opening=0;
@@ -48,7 +48,7 @@ int main(int argc, char * argv[])
     if (argc > 4)
     {
         collision_map_creator_msgs::msgs::CollisionMapRequest request;
-        deque<collision_map_creator_msgs::msgs::Vec2d*> corners;
+        deque<gazebo::msgs::Vector2d*> corners;
 
         corners.push_back(request.mutable_upperleft());
         corners.push_back(request.mutable_upperright());

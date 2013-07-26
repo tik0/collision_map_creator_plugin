@@ -1,9 +1,0 @@
-package collision_map_creator_msgs.msgs;
-
-message Vec2d
-{
-  required double x = 1;
-  required double y = 2;
-}
-
-
