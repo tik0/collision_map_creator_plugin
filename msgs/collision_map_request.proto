@@ -11,4 +11,5 @@ message CollisionMapRequest
   required double                 resolution = 6;
   optional string                 filename   = 7 [default = ""];
   optional int32                  threshold  = 8 [default = 255];
+  optional string                 groundEntityName = 9 [default = ""];
 }

@@ -64,9 +64,15 @@ int main(int argc, char * argv[])
         request.set_resolution(atof(argv[3]));
         request.set_filename(argv[4]);
 
-        if (argc == 6)
+        if (argc >= 6)
         {
-            request.set_threshold(atoi(argv[6]));
+            request.set_threshold(atoi(argv[5]));
+        }
+
+        if (argc >= 7)
+        {
+            std::cout << "gen: " << argv[6] << std::endl << std::flush;
+            request.set_groundentityname(argv[6]);
         }
 
         gazebo::transport::init();
@@ -86,7 +92,8 @@ int main(int argc, char * argv[])
                      " Height: " << request.height() <<
                      " Resolution: " << request.resolution() <<
                      " Filename: " << request.filename() <<
-                     " Threshold: " << request.threshold() << std::endl;
+                     " Threshold: " << request.threshold() <<
+                     " GroundEntityName: " << request.groundentityname() << std::endl;
 
         gazebo::transport::PublisherPtr imagePub =
                 node->Advertise<collision_map_creator_msgs::msgs::CollisionMapRequest>(

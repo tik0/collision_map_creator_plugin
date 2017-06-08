@@ -52,6 +52,13 @@ class CollisionMapCreator : public WorldPlugin
         "Occupied spaces will be filled with: " << msg->threshold() <<
         std::endl;
 
+    std::string groundEntityName;
+    if (!msg->groundentityname().empty())
+    {
+      groundEntityName = msg->groundentityname();
+      std::cout << "Entity \"" << groundEntityName << "\" is treated as ground." << std::endl;
+    }
+
     double dX_vertical = msg->upperleft().x() - msg->lowerleft().x();
     double dY_vertical = msg->upperleft().y() - msg->lowerleft().y();
     double mag_vertical =
@@ -71,7 +78,7 @@ class CollisionMapCreator : public WorldPlugin
 
     if (count_vertical == 0 || count_horizontal == 0)
     {
-      std::cout << "Image has a zero dimensions, check coordinates"
+      std::cout << "Image has a zero dimension, check coordinates"
                 << std::endl;
       return;
     }
@@ -111,7 +118,7 @@ class CollisionMapCreator : public WorldPlugin
         start.y = end.y = y;
         ray->SetPoints(start, end);
         ray->GetIntersection(dist, entityName);
-        if (!entityName.empty())
+        if (entityName != groundEntityName)
         {
           image._view(i,j) = fill;
         }
