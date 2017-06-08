@@ -66,7 +66,7 @@ int main(int argc, char * argv[])
 
         if (argc == 6)
         {
-            request.set_threshold(atoi(argv[6]));
+            request.set_threshold(atoi(argv[5]));
         }
 
         gazebo::transport::init();
