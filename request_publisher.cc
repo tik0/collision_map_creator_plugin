@@ -71,8 +71,12 @@ int main(int argc, char * argv[])
 
         if (argc >= 7)
         {
-            std::cout << "gen: " << argv[6] << std::endl << std::flush;
             request.set_groundentityname(argv[6]);
+        }
+
+        if (argc >= 8)
+        {
+            request.set_minheight(atof(argv[7]));
         }
 
         gazebo::transport::init();
@@ -93,7 +97,8 @@ int main(int argc, char * argv[])
                      " Resolution: " << request.resolution() <<
                      " Filename: " << request.filename() <<
                      " Threshold: " << request.threshold() <<
-                     " GroundEntityName: " << request.groundentityname() << std::endl;
+                     " GroundEntityName: " << request.groundentityname() <<
+                     " MinHeight: " << request.minheight() << std::endl;
 
         gazebo::transport::PublisherPtr imagePub =
                 node->Advertise<collision_map_creator_msgs::msgs::CollisionMapRequest>(
@@ -103,6 +108,10 @@ int main(int argc, char * argv[])
 
         gazebo::transport::fini();
         return 0;
+    } else {
+        std::cerr << "Usage: " << argv[0] <<
+                     " \"(upperleft.x,upperleft.y)(upperright.x,upperright.y)(lowerright.x,lowerright.y)(lowerleft.x,lowerleft.y)\"" <<
+                     " maxheight resolution outfile.png [threshold] [groundentityname] [minheight]" << std::endl;
+        return -1;
     }
-    return -1;
 }

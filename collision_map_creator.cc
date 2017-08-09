@@ -92,7 +92,7 @@ class CollisionMapCreator : public WorldPlugin
     std::string entityName;
     math::Vector3 start, end;
     start.z = msg->height();
-    end.z = 0.001;
+    end.z = msg->minheight();
 
     gazebo::physics::PhysicsEnginePtr engine = world->GetPhysicsEngine();
     engine->InitForThread();
@@ -105,8 +105,11 @@ class CollisionMapCreator : public WorldPlugin
 
     for (int i = 0; i < count_vertical; ++i)
     {
-      std::cout << "Percent complete: " << i * 100.0 / count_vertical
-                << std::endl;
+      if (count_vertical <= 100 || i % int(count_vertical * 0.01f) == 0) // output progess every percent
+      {
+        std::cout << "Percent complete: " << i * 100.0 / count_vertical << std::endl;
+      }
+
       x = i * dX_vertical + msg->lowerleft().x();
       y = i * dY_vertical + msg->lowerleft().y();
       for (int j = 0; j < count_horizontal; ++j)
@@ -125,12 +128,13 @@ class CollisionMapCreator : public WorldPlugin
       }
     }
 
-    std::cout << "Completed calculations, writing to image" << std::endl;
+    std::cout << "Completed calculations, writing to image ...";
     if (!msg->filename().empty())
     {
       boost::gil::gray8_view_t view = image._view;
       boost::gil::png_write_view(msg->filename(), view);
     }
+    std::cout << " done" << std::endl;
   }
 };
 

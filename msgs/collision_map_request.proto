@@ -11,5 +11,6 @@ message CollisionMapRequest
   required double                 resolution = 6;
   optional string                 filename   = 7 [default = ""];
   optional int32                  threshold  = 8 [default = 255];
-  optional string                 groundEntityName = 9 [default = ""];
+  optional string                 groundEntityName = 9 [default = "ground_plane::link::collision"];
+  optional double                 minHeight = 10 [default = 0];
 }
