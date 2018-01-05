@@ -31,7 +31,7 @@ GAZEBO_PLUGIN_PATH=PATH/TO/collision_map_creator_plugin/build/ roslaunch ...
 ### Request to create the collision map
 
 ```
-$ ./request_publisher "(-10,10)(10,10)" 10 0.01 $(pwd)/map.png 255 office_desk::link::collision
+$ ./request_publisher "(-10,-10)(10,10)" 10 0.01 $(pwd)/map.png 255 office_desk::link::collision
 ```
 This will create a PNG file called `./map.png` which contains the bird's-eye view from 10 meters above of the area specified by the bounds `(-10,-10)(10,10)` at a resolution of 0.01 meter per pixel. The collision entity `office_desk::link::collision` is treated as the ground and represented by white color in the image. Everything else is colored in black (255 - 255 = 0).
 
@@ -70,6 +70,6 @@ Gazebo screenshot of `simple.world`
 ./request_publisher "(-5,-3)(4,5)" 10 0.04 $(pwd)/map.png 255 ground_plane::link::collision
 ```
 The created images are flipped, because the y-axis points down in images.
-The following created image is flipped afterwards for correct visualization:
+The following created image is flipped afterwards for correct visualization (e.g. by `$ convert map.png -flip map_flip.png`):
 
 ![map_flipped](images/map_flip.png)
