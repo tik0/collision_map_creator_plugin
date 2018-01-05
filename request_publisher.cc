@@ -50,10 +50,8 @@ int main(int argc, char * argv[])
         collision_map_creator_msgs::msgs::CollisionMapRequest request;
         deque<gazebo::msgs::Vector2d*> corners;
 
-        corners.push_back(request.mutable_upperleft());
-        corners.push_back(request.mutable_upperright());
-        corners.push_back(request.mutable_lowerright());
         corners.push_back(request.mutable_lowerleft());
+        corners.push_back(request.mutable_upperright());
 
         if (!createVectorArray(argv[1],corners))
         {
@@ -85,14 +83,10 @@ int main(int argc, char * argv[])
         node->Init("default");
 
         std::cout << "Request: " <<
-                     " UL.x: " << request.upperleft().x() <<
-                     " UL.y: " << request.upperleft().y() <<
-                     " UR.x: " << request.upperright().x() <<
-                     " UR.y: " << request.upperright().y() <<
-                     " LR.x: " << request.lowerright().x() <<
-                     " LR.y: " << request.lowerright().y() <<
                      " LL.x: " << request.lowerleft().x() <<
                      " LL.y: " << request.lowerleft().y() <<
+                     " UR.x: " << request.upperright().x() <<
+                     " UR.y: " << request.upperright().y() <<
                      " Height: " << request.height() <<
                      " Resolution: " << request.resolution() <<
                      " Filename: " << request.filename() <<
@@ -110,7 +104,7 @@ int main(int argc, char * argv[])
         return 0;
     } else {
         std::cerr << "Usage: " << argv[0] <<
-                     " \"(upperleft.x,upperleft.y)(upperright.x,upperright.y)(lowerright.x,lowerright.y)(lowerleft.x,lowerleft.y)\"" <<
+                     " \"(lowerleft.x,lowerleft.y)(upperright.x,upperright.y)\"" <<
                      " maxheight resolution outfile.png [threshold] [groundentityname] [minheight]" << std::endl;
         return -1;
     }

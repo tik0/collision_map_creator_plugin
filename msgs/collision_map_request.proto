@@ -3,14 +3,12 @@ import "vector2d.proto";
 
 message CollisionMapRequest
 {
-  required gazebo.msgs.Vector2d   upperLeft  = 1;
-  required gazebo.msgs.Vector2d   upperRight = 2;
-  required gazebo.msgs.Vector2d   lowerRight = 3;
-  required gazebo.msgs.Vector2d   lowerLeft  = 4;
-  required double                 height     = 5;
-  required double                 resolution = 6;
-  optional string                 filename   = 7 [default = ""];
-  optional int32                  threshold  = 8 [default = 255];
-  optional string                 groundEntityName = 9 [default = "ground_plane::link::collision"];
-  optional double                 minHeight = 10 [default = 0];
+  required gazebo.msgs.Vector2d   lowerleft  = 1;
+  required gazebo.msgs.Vector2d   upperright = 2;
+  required double                 height     = 3;
+  required double                 resolution = 4;
+  optional string                 filename   = 5 [default = ""];
+  optional int32                  threshold  = 6 [default = 255];
+  optional string                 groundEntityName = 7 [default = "ground_plane::link::collision"];
+  optional double                 minHeight = 8 [default = 0];
 }

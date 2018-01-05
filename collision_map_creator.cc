@@ -43,10 +43,8 @@ class CollisionMapCreator : public WorldPlugin
     std::cout << "Received message" << std::endl;
 
     std::cout << "Creating collision map with corners at (" <<
-      msg->upperleft().x() << ", " << msg->upperleft().y() << "), (" <<
-      msg->upperright().x() << ", " << msg->upperright().y() << "), (" <<
-      msg->lowerright().x() << ", " << msg->lowerright().y() << "), (" <<
-      msg->lowerleft().x() << ", " << msg->lowerleft().y() <<
+      msg->lowerleft().x() << ", " << msg->lowerleft().y() << "), (" <<
+      msg->upperright().x() << ", " << msg->upperright().y() <<
         ") with collision projected from z = " <<
       msg->height() << "\nResolution = " << msg->resolution() << " m\n" <<
         "Occupied spaces will be filled with: " << msg->threshold() <<
@@ -59,26 +57,17 @@ class CollisionMapCreator : public WorldPlugin
       std::cout << "Entity \"" << groundEntityName << "\" is treated as ground." << std::endl;
     }
 
-    double dX_vertical = msg->upperleft().x() - msg->lowerleft().x();
-    double dY_vertical = msg->upperleft().y() - msg->lowerleft().y();
-    double mag_vertical =
-      sqrt(dX_vertical * dX_vertical + dY_vertical * dY_vertical);
-    dX_vertical = msg->resolution() * dX_vertical / mag_vertical;
-    dY_vertical = msg->resolution() * dY_vertical / mag_vertical;
+    double dX = msg->upperright().x() - msg->lowerleft().x();
+    double dY = msg->upperright().y() - msg->lowerleft().y();
 
-    double dX_horizontal = msg->upperright().x() - msg->upperleft().x();
-    double dY_horizontal = msg->upperright().y() - msg->upperleft().y();
-    double mag_horizontal =
-      sqrt(dX_horizontal * dX_horizontal + dY_horizontal * dY_horizontal);
-    dX_horizontal = msg->resolution() * dX_horizontal / mag_horizontal;
-    dY_horizontal = msg->resolution() * dY_horizontal / mag_horizontal;
+    std::cout << "(dX, dY): (" << dX << ", " << dY << ")" << std::endl;
 
-    int count_vertical = mag_vertical / msg->resolution();
-    int count_horizontal = mag_horizontal / msg->resolution();
+    int dX_count = dX / msg->resolution();
+    int dY_count = dY / msg->resolution();
 
-    if (count_vertical == 0 || count_horizontal == 0)
+    if (dX_count <= 0 || dY_count <= 0)
     {
-      std::cout << "Image has a zero dimension, check coordinates"
+      std::cerr << "Image has zero or negative dimension, check coordinates"
                 << std::endl;
       return;
     }
@@ -86,7 +75,7 @@ class CollisionMapCreator : public WorldPlugin
 
     boost::gil::gray8_pixel_t fill(255-msg->threshold());
     boost::gil::gray8_pixel_t blank(255);
-    boost::gil::gray8_image_t image(count_horizontal, count_vertical);
+    boost::gil::gray8_image_t image(dX_count, dY_count);
 
     double dist;
     std::string entityName;
@@ -103,27 +92,25 @@ class CollisionMapCreator : public WorldPlugin
     std::cout << "Rasterizing model and checking collisions" << std::endl;
     boost::gil::fill_pixels(image._view, blank);
 
-    for (int i = 0; i < count_vertical; ++i)
+    for (int idx = 0; idx < dX_count; ++idx)
     {
-      if (count_vertical <= 100 || i % int(count_vertical * 0.01f) == 0) // output progess every percent
+      if (dX_count <= 100 || idx % int(dX_count * 0.01f) == 0) // output progess every percent
       {
-        std::cout << "Percent complete: " << i * 100.0 / count_vertical << std::endl;
+        std::cout << "Percent complete: " << idx * 100.0 / dX_count << std::endl;
       }
 
-      x = i * dX_vertical + msg->lowerleft().x();
-      y = i * dY_vertical + msg->lowerleft().y();
-      for (int j = 0; j < count_horizontal; ++j)
+      x = idx * msg->resolution() + msg->lowerleft().x();
+      for (int idy = 0; idy < dY_count; ++idy)
       {
-        x += dX_horizontal;
-        y += dY_horizontal;
+        y = idy * msg->resolution() + msg->lowerleft().y();
 
-        start.x = end.x= x;
+        start.x = end.x = x;
         start.y = end.y = y;
         ray->SetPoints(start, end);
         ray->GetIntersection(dist, entityName);
         if (entityName != groundEntityName)
         {
-          image._view(i,j) = fill;
+          image._view(idx, idy) = fill;
         }
       }
     }
