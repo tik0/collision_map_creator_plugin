@@ -1,6 +1,6 @@
 # Collision map creator plugin
 
-This is a fork of Stephen Brawner's collision\_map\_creator\_plugin for Gazebo with the major difference that you can choose which entity to treat as ground (useful for table-top robotics), e.g. by speciying collision entity or setting a minimum height.
+This is a fork of Julian Exner's [collision\_map\_creator\_plugin](https://bitbucket.org/jexner/collision_map_creator_plugin/overview) (originally forked from Stephen Brawner's [collision\_map\_creator\_plugin](https://bitbucket.org/brawner/collision_map_creator_plugin) for Gazebo with the major difference that you can choose which entity to treat as ground (useful for table-top robotics), e.g. by speciying collision entity or setting a minimum height.
 
 ## How to compile
 
