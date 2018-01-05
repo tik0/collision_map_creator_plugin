@@ -53,6 +53,7 @@ The last parameter tells the plugin to consider only the parts of the entity `of
 7. (optional) minimum height (meter): everything below this height will also be treated as obstacles (default: 0)
 
 Coordinates are with respect to the collision object's reference coordinate system:
+
 ![sketch](images/sketch.png)
 
 ## Example
