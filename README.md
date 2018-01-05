@@ -62,9 +62,14 @@ You will find a world example in `world/simple.world` with three primitives whic
 ```
 $ gazebo /path/to/repository/world/simple.world
 ```
+Gazebo screenshot of `simple.world`
+
 ![simple.world](images/simple.png)
 
 ```
 ./request_publisher "(-5,-3)(4,5)" 10 0.04 $(pwd)/map.png 255 ground_plane::link::collision
 ```
+The created images are flipped, because the y-axis points down in images.
+The following created image is flipped afterwards for correct visualization:
+
 ![map_flipped](images/map_flip.png)
