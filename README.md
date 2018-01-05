@@ -44,13 +44,13 @@ The last parameter tells the plugin to consider only the parts of the entity `of
 
 ### Parameters
 
-1. Region of interest with corner coordinates (meter): (lowerleft.x, lowerleft.y)(upperright.x, upperright.y)
+1. Region of interest with corner coordinates (meter): `(lowerleft.x, lowerleft.y)(upperright.x, upperright.y)`
 2. Height from which map is created (meter)
 3. Resolution (meter per pixel)
 4. Path where the png file will be stored. (Hint: this is relative to Gazebo's working directory, e.g. `~/.ros/` or use a full path.)
-5. (optional) threshold: which value to use for objects (default: 255)
-6. (optional) ground entity name: which Gazebo entity to treat as ground (default: "ground_plane::link::collision")
-7. (optional) minimum height (meter): everything below this height will also be treated as obstacles (default: 0)
+5. (optional) threshold: which value to use for objects (default: `255`)
+6. (optional) ground entity name: which Gazebo entity to treat as ground (default: `ground_plane::link::collision`)
+7. (optional) minimum height (meter): everything below this height will also be treated as obstacles (default: `0`)
 
 Coordinates are with respect to the collision object's reference coordinate system:
 
