@@ -1,6 +1,6 @@
 # Collision map creator plugin
 
-This is a fork of Julian Exner's [collision\_map\_creator\_plugin](https://bitbucket.org/jexner/collision_map_creator_plugin/overview) (originally forked from Stephen Brawner's [collision\_map\_creator\_plugin](https://bitbucket.org/brawner/collision_map_creator_plugin) for Gazebo with the major difference that you can choose which entity to treat as ground (useful for table-top robotics), e.g. by speciying collision entity or setting a minimum height.
+This is a fork of Stephen Brawner's [collision\_map\_creator\_plugin](https://bitbucket.org/brawner/collision_map_creator_plugin) for Gazebo with the major difference that you can choose which entity to treat as ground (useful for table-top robotics), e.g. by speciying collision entity or setting a minimum height.
 
 ## How to compile
 
@@ -25,7 +25,7 @@ make
 Run the Gazebo simulation, but make sure to copy the `libcollision_map_creator.so` to a folder inside your `GAZEBO_PLUGIN_PATH`, or add the build folder to that path before running, e.g.:
 
 ```
-GAZEBO_PLUGIN_PATH=PATH/TO/collision_map_creator_plugin/build/ roslaunch ...
+GAZEBO_PLUGIN_PATH=PATH/TO/collision_map_creator_plugin/build/ gazebo <worldfile>
 ```
 
 ### Request to create the collision map
@@ -67,9 +67,10 @@ Gazebo screenshot of `simple.world`
 ![simple.world](images/simple.png)
 
 ```
-./request_publisher "(-5,-3)(4,5)" 10 0.04 $(pwd)/map.png 255 ground_plane::link::collision
+./request_publisher "(-5,-3)(4,5)" 0.1 0.04 $(pwd)/map.png 255 ground_plane::link::collision
 ```
 The created images are flipped, because the y-axis points down in images.
+Furthermore, the height was chosen to be 10 cm which is a common LiDAR height and thus, the footprint of the sphere at this height is much smaller.
 The following created image is flipped afterwards for correct visualization (e.g. by `$ convert map.png -flip map_flip.png`):
 
 ![map_flipped](images/map_flip.png)

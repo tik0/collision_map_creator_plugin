@@ -78,6 +78,8 @@ class CollisionMapCreator : public WorldPlugin
     boost::gil::gray8_image_t image(dX_count, dY_count);
 
     double dist;
+    const double epsHeight = 0.001;
+    bool doFill = false;
     std::string entityName;
     math::Vector3 start, end;
     start.z = msg->height();
@@ -108,7 +110,33 @@ class CollisionMapCreator : public WorldPlugin
         start.y = end.y = y;
         ray->SetPoints(start, end);
         ray->GetIntersection(dist, entityName);
-        if (entityName != groundEntityName)
+        if (entityName.empty()) // No intersection with an object
+        {
+          doFill = false;
+        }
+        else if (entityName == groundEntityName) // Intersection with the ground entity
+        {
+          // First check from the other side if it is still the groundEntityName
+          math::Vector3 startTmp(start), endTmp(end);
+          startTmp.z = start.z - dist - epsHeight;
+          endTmp.z = start.z - dist + epsHeight;
+          ray->SetPoints(startTmp, endTmp);
+          ray->GetIntersection(dist, entityName);
+          if (entityName == groundEntityName)
+          {
+            doFill = false;
+          }
+          else
+          {
+            doFill = true;
+          } 
+        }
+        else // Intersection with some other object
+        {
+          doFill = true;
+        }
+
+        if (doFill)
         {
           image._view(idx, idy) = fill;
         }
